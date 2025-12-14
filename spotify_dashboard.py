@@ -15,7 +15,7 @@ except ImportError:
 # Use deployed URL if available, otherwise local
 if "STREAMLIT_SHARING" in os.environ or "STREAMLIT_CLOUD" in os.environ:
     # This will be your deployed app URL - update after deployment
-    REDIRECT_URI = os.environ.get("REDIRECT_URI", "https://spotify-stats-dashboard.streamlit.app")
+    REDIRECT_URI = os.environ.get("REDIRECT_URI", "https://anikaranam-spotify-stats-dashboard.streamlit.app")
 else:
     REDIRECT_URI = "http://127.0.0.1:8501"
 SPOTIFY_URI = 'https://api.spotify.com/v1/me'
