@@ -4,24 +4,6 @@ import urllib.parse
 from datetime import datetime, timedelta
 import os
 
-# try:
-#     import stored_variables
-#     CLIENT_ID = stored_variables.client_id
-#     CLIENT_SECRET = stored_variables.client_secret
-# except ImportError:
-#     CLIENT_ID = os.environ.get("SPOTIFY_CLIENT_ID")
-#     CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET")
-
-# # Use deployed URL if available, otherwise local
-# if "STREAMLIT_SHARING" in os.environ or "STREAMLIT_CLOUD" in os.environ:
-#     # This will be your deployed app URL - update after deployment
-#     REDIRECT_URI = os.environ.get("REDIRECT_URI", "https://anikaranam-spotify-stats-dashboard.streamlit.app")
-# else:
-#     REDIRECT_URI = "http://127.0.0.1:8501"
-# SPOTIFY_URI = 'https://api.spotify.com/v1/me'
-
-
-# Try to import from stored_variables (local), fallback to environment variables (deployment)
 try:
     import stored_variables
     CLIENT_ID = stored_variables.client_id
@@ -30,20 +12,17 @@ except ImportError:
     CLIENT_ID = os.environ.get("SPOTIFY_CLIENT_ID")
     CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET")
 
-# Check if running on Streamlit Cloud or locally
-# On Streamlit Cloud, REDIRECT_URI must be set in secrets
-REDIRECT_URI = os.environ.get("REDIRECT_URI")
-
-# If REDIRECT_URI not set (local development), use local address
-if not REDIRECT_URI:
+# Use deployed URL if available, otherwise local
+if "STREAMLIT_SHARING" in os.environ or "STREAMLIT_CLOUD" in os.environ:
+    # This will be your deployed app URL - update after deployment
+    REDIRECT_URI = os.environ.get("REDIRECT_URI", "https://anikaranam-spotify-stats-dashboard.streamlit.app")
+else:
     REDIRECT_URI = "http://127.0.0.1:8501"
 SPOTIFY_URI = 'https://api.spotify.com/v1/me'
 
+
 # Page config
 st.set_page_config(page_title="Spotify Stats Dashboard", layout="wide")
-st.subheader(f"Redirect URI: {REDIRECT_URI}")
-st.subheader(f"Client ID: {CLIENT_ID}")
-st.subheader(f"Client Secret: {CLIENT_SECRET}")
 
 if 'access_token' not in st.session_state:
     st.session_state.access_token = None
@@ -57,7 +36,7 @@ def get_auth_url():
     params = {
         "client_id": CLIENT_ID,
         "response_type": "code",
-        "redirect_uri": 'https://anikaranam-spotify-stats-dashboard.streamlit.app',
+        "redirect_uri": REDIRECT_URI,
         "scope": scope,
         "show_dialog": "true"
     }
@@ -69,7 +48,7 @@ def exchange_code_for_token(code):
     token_data = {
         "grant_type": "authorization_code",
         "code": code,
-        "redirect_uri": 'https://anikaranam-spotify-stats-dashboard.streamlit.app',
+        "redirect_uri": REDIRECT_URI,
         "client_id": CLIENT_ID,
         "client_secret": CLIENT_SECRET
     }
