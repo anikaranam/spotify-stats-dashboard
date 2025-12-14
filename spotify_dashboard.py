@@ -57,7 +57,7 @@ def get_auth_url():
     params = {
         "client_id": CLIENT_ID,
         "response_type": "code",
-        "redirect_uri": REDIRECT_URI,
+        "redirect_uri": 'https://anikaranam-spotify-stats-dashboard.streamlit.app',
         "scope": scope,
         "show_dialog": "true"
     }
@@ -69,7 +69,7 @@ def exchange_code_for_token(code):
     token_data = {
         "grant_type": "authorization_code",
         "code": code,
-        "redirect_uri": REDIRECT_URI,
+        "redirect_uri": 'https://anikaranam-spotify-stats-dashboard.streamlit.app',
         "client_id": CLIENT_ID,
         "client_secret": CLIENT_SECRET
     }
