@@ -1,0 +1,4 @@
+stored_variables.py
+__pycache__/
+*.pyc
+.env
