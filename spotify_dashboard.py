@@ -41,6 +41,9 @@ SPOTIFY_URI = 'https://api.spotify.com/v1/me'
 
 # Page config
 st.set_page_config(page_title="Spotify Stats Dashboard", layout="wide")
+st.subheader(f"Redirect URI: {REDIRECT_URI}")
+st.subheader(f"Client ID: {CLIENT_ID}")
+st.subheader(f"Client Secret: {CLIENT_SECRET}")
 
 if 'access_token' not in st.session_state:
     st.session_state.access_token = None
